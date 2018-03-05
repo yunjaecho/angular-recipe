@@ -1,33 +1,13 @@
-<div style="float: right">
+<div style="float: right; padding: 5px">
+  <input type="button" value="Add New Recipe" (click)="addNewRecipeProgress()"/>
   <input type="button" value="Toggle Dark BG" (click)="toggleBackground()"/>
+  <input type="button" value="Toggle Font Size" (click)="toggleFontSize()"/>
 </div>
 
-<h1 class="{{use_dark_background? 'darkbg' : ''}}">These are our Recipes</h1>
+<!--<h1 class="{{use_dark_background? 'darkbg' : ''}}">These are our Recipes</h1>-->
+<!--<h1 [class.darkbg]="use_dark_background">These are our Recipes</h1>-->
+<h1 [ngClass]="current_classes" [ngStyle]="current_style">These are our Recipes</h1>
 
-<app-recipe-summary *ngFor="let recipe of recipes" [recipe]="recipe" (zoomIn)="zoomInOnRecipe(recipe)"></app-recipe-summary>
+<app-recipe-summary *ngFor="let recipe of recipes" [recipe]="recipe" (userClick)="userClickedOnRecipe($event)"></app-recipe-summary>
 
-<div class="newrecipe panel panel-default" style="max-width: 700px">
-  <div class="panel-heading">
-    <h4>Add new Recipe</h4>
-  </div>
-  <div class="panel-body">
-    <div class="input-group">
-      <input style="width: 400px" [(ngModel)]="recipe_in_progress.title" type="text" class="form-control" placeholder="Recipe Title" name="title"/>
-    </div>
-    <div class="input-group">
-      <textarea style="width: 400px" [(ngModel)]="recipe_in_progress.description" rows="5" class="form-control" placeholder="Recipe Description" name="description"></textarea>
-    </div>
-    <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="recipe_in_progress.feeds_this_many" placeholder="Feeds this may" name="feeds_this_many"/>
-      <span class="input-group-addon">people</span>
-    </div>
-    <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="recipe_in_progress.preparation_time" placeholder="Preparation Time" name="preparation_time"/>
-      <span class="input-group-addon">minutes</span>
-    </div>
-    <div class="input-group">
-      <input type="button" value="Add Recipe" (click)="addRecipeClicked()"/>
-    </div>
-
-  </div>
-</div>
+<div style="clear: both"></div>

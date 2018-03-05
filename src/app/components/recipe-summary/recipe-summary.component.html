@@ -1,4 +1,4 @@
-<div class='recipe panel panel-default'>
+<div class='recipe panel panel-default' (click)="userClicked()">
   <div class="panel-heading">
     <h3 class="panel-title">{{ recipe.title }}</h3>
   </div>
@@ -6,13 +6,23 @@
     <div class='cover-photo-holder'>
       <img src="{{ recipe.cover_photo ? recipe.cover_photo : '/assets/emptybowl.jpg' }}"/>
     </div>
+    <!--
+    <div class='cover-photo-holder'>
+      <img hidden="{{recipe.cover_photo ? 'true': 'false'}}" src="{{ recipe.cover_photo ? recipe.cover_photo : '/assets/emptybowl.jpg' }}"/>
+    </div>
+    -->
+    <!--
+    <div class='cover-photo-holder' *ngIf="recipe.cover_photo">
+      <img src="{{ recipe.cover_photo}}"/>
+    </div>
+    -->
     <p>{{ recipe.description }}</p>
     <div>
-      <div style="float: left; font-weight: bold; width: 150px">Preperation Time</div>
+      <div class="data-title">Preperation Time</div>
       <div>{{recipe.preparation_time}}</div>
       <div style="float: left; font-weight: bold; width: 150px">Feeds how many</div>
       <div>{{recipe.feeds_this_many}}</div>
     </div>
   </div>
-  <div style="font-size: 75%; cursor: pointer; padding: 5px" (click)="zoomClicked()">zoom</div>
+  <!--<div style="font-size: 75%; cursor: pointer; padding: 5px" (click)="userClicked()">zoom</div>-->
 </div>
