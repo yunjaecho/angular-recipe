@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Recipe} from "../../model/recipe";
+import {RecipeService} from "../../services/recipe.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-edit-new-recipe',
@@ -10,7 +12,7 @@ export class EditNewRecipeComponent implements OnInit {
 
   recipe_in_progress: Recipe;
 
-  constructor() {
+  constructor(private recipe_service: RecipeService, private router: Router) {
     this.recipe_in_progress = Recipe.createBlank();
   }
 
@@ -40,6 +42,14 @@ export class EditNewRecipeComponent implements OnInit {
 
   removeInstructionAtIndex(index): void {
     this.recipe_in_progress.instructions.splice(index, 1);
+  }
+
+  addRecipeClicked(): void {
+    this.recipe_service.addNewRecipe(this.recipe_in_progress)
+      .then((recipe) => {
+        this.router.navigate(['recipe', recipe.id]);
+      })
+    ;
   }
 
 }
