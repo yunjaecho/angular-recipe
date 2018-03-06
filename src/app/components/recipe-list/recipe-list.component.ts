@@ -25,6 +25,10 @@ export class RecipeListComponent implements OnInit {
 
   recipes_loaded: boolean;
 
+  load_error: boolean;
+
+  error_text: string;
+
   constructor(private router: Router, private recipe_service: RecipeService) {
 
     this.recipe_in_progress = Recipe.createBlank();
@@ -34,6 +38,8 @@ export class RecipeListComponent implements OnInit {
     this.current_style = {'font-size' : '150%'}
 
     this.font_size = '150%';
+
+    this.load_error = false;
   }
 
   ngOnInit(): void {
@@ -41,6 +47,11 @@ export class RecipeListComponent implements OnInit {
       .then((recipes) => {
         this.recipes = recipes;
         this.recipes_loaded = true;
+      })
+      .catch((err) => {
+        this.load_error = true;
+        const body = JSON.parse(err.body);
+        this.load_error = body.message;
       });
   }
 

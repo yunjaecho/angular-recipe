@@ -16,6 +16,10 @@ export class RecipeService {
   constructor(private http: Http) {
   }
 
+  public static imageUrl(img: string): string {
+    return `${RECIPE_SERVER}/images/${img}`;
+  }
+
   /*getAllRecipes(): Promise<Recipe[]> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -57,12 +61,35 @@ export class RecipeService {
 
 
 
-  addNewRecipe(recipe: Recipe): Promise<Recipe> {
+  addNewRecipe(recipe: Recipe, files: {}): Promise<Recipe> {
     return this.http
         .put(RECIPE_SERVER + '/v1/recipes.json', recipe)
         .toPromise()
-        .then(response => response.json().data as Recipe)
-      .catch(this.handleError);
+        .then((response) => {
+          const final_recipe: Recipe = response.json().data as Recipe;
+          const formData: FormData = new FormData();
+
+          if (files['cover_photo']) {
+            const file: File = files['cover_photo'];
+            formData.append('cover_photo', file, file.name);
+          }
+
+          if (files['instruction_photos']) {
+            for (let i = 0; i < files['instruction_photos'].length; i++) {
+              console.log('file.name : ' + files['instruction_photos'][i].name);
+              if (files['instruction_photos'][i]) {
+                const file: File = files['instruction_photos'][i];
+                formData.append('preparation_photos_' + i, file, file.name);
+              }
+            }
+          }
+
+          return this.http.post(RECIPE_SERVER + `/v1/recipes/${final_recipe.id}/images`, formData)
+            .toPromise()
+            .then(image_response => final_recipe)
+            .catch(this.handleError);
+        })
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

@@ -41,3 +41,11 @@ div.add-ingredient input, div.add-instruction input {
     float: right;
   }
 }
+
+input.ng-valid, textarea.ng-valid {
+  border-left: 5px solid #42a948;
+}
+
+input.ng-invalid, textarea.ng-invalid {
+  border-left: 5px solid #a94442;
+}

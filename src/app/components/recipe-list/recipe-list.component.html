@@ -4,17 +4,22 @@
   <input type="button" value="Toggle Font Size" (click)="toggleFontSize()"/>
 </div>
 
-<div *ngIf="!recipes_loaded">
-  <div class="bs-callout bs-callout-info" id="callout-navs-tabs-plugin">
-    <h4> Loading Recipes </h4>
-    Please wait a moment.
+<p *ngIf="!recipes_loaded && !load_error" style="color: brown;">
+    Loading Recipes .... Please wait a moment.
+</p>
+
+<div *ngIf="load_error">
+  <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    {{ error_text }} - <a [routerLink]="['/recipe']">Back to recipe list</a>
   </div>
 </div>
 
 <!--<h1 class="{{use_dark_background? 'darkbg' : ''}}">These are our Recipes</h1>-->
 <!--<h1 [class.darkbg]="use_dark_background">These are our Recipes</h1>-->
-<h1 *ngIf="recipes_loaded" [ngClass]="current_classes" [ngStyle]="current_style">These are our Recipes</h1>
+<h1 *ngIf="recipes_loaded && !load_error" [ngClass]="current_classes" [ngStyle]="current_style">These are our Recipes</h1>
 
-<app-recipe-summary  *ngFor="let recipe of recipes" [recipe]="recipe" (userClick)="userClickedOnRecipe($event)"></app-recipe-summary>
+<app-recipe-summary *ngFor="let recipe of recipes" [recipe]="recipe" (userClick)="userClickedOnRecipe($event)"></app-recipe-summary>
 
 <div style="clear: both"></div>

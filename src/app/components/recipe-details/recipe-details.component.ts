@@ -55,4 +55,12 @@ export class RecipeDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  imageUrl(img: string, defimg?: string): string {
+    if (!img && defimg) {
+      return defimg;
+    }
+    return RecipeService.imageUrl(img);
+  }
+
+
 }

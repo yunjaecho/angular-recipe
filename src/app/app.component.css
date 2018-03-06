@@ -1,25 +1,30 @@
-h1 {
-    font-size: 160%;
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #983C29;
+  overflow: hidden;
 }
 
-div.cover-photo-holder {
-    float: right;
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-div.cover-photo-holder img {
-    width: 150px;
-    height: 150px;
-    margin: 5px;
-}
-.recipe {
-    float: left;
-    width: 97%;
-    margin: 10px 0;
+/* Change the color of links on hover */
+@media (min-width: 850px) {
+  .topnav a:hover {
+    background-color: white;
+    color: #983C29;
+  }
 }
 
-@media (min-width: 800px) {
-    .recipe {
-        width: 500px;
-        margin: 10px 10px;
-    }
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
 }
